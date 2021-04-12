@@ -182,7 +182,7 @@ export function http({method = 'get', url='', params, header, onprogress, async=
     })
 }
 
-getParams(obj) {
+function getParams(obj) {
     let res = ''
     for(let key in obj) {
         if(obj[key] && obj.hasOwnProperty(key)) {
@@ -218,4 +218,17 @@ function isInView(img) {
     }
 
     return false
+}
+
+export function jsonp({url, params, callback}) {
+    jsonp.cbId = jsonp.cbId || 1
+    jsonp.callbacks = jsonp.callbacks || []
+    jsonp.callbacks[jsonp.cbId] = callback
+
+    let script = document.createElement('script')
+    params['callback'] = `jsonp.callbacks[${jsonp.cbId}]`
+    script.setAttribute('src', url + getParams(params))
+    document.body.append(script)
+
+    jsonp.cbId++
 }
