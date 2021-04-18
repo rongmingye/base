@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>瀑布流布局</title>
+    <style>
+        
+        /* columns 方式 */
+        .container1 {
+            columns: 100px;  /* 列宽 */
+            column-gap: 10px; /* 列间隙 */
+            width: 500px;
+            margin: 0 auto;
+        }
+        .container1 .item {
+            width: 100px;
+            height: 100px;
+            break-inside: avoid; /* 避免中断 */
+            background: #999;
+            margin-bottom: 10px;
+        }
+        .container1 .item:nth-child(2n) {
+            height: 150px;
+        }
+
+        /*  column-count 方式 */
+        .container2 {
+            column-count: 4; /* 列数 */
+            column-gap: 10px;
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        .container2 .item {
+            width: 100px;
+            height: 100px;
+            break-inside: avoid;
+            background: #999;
+            margin-bottom: 10px;
+        }
+        .container2 .item:nth-child(2n) {
+            height: 150px;
+        }
+
+        /* grid 方式 */
+        .container3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, 100px);
+            grid-gap: 10px;
+            grid-auto-flow: row dense;
+            grid-auto-rows: 20px;
+
+            width: 500px;
+            margin: 0 auto;
+          
+        }
+        .item {
+            grid-row: auto / span 5;
+            background: #999;
+        }
+        .item:nth-child(2n) {
+            grid-row: auto / span 7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container2">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <div class="item">9</div>
+        <div class="item">10</div>
+        <div class="item">11</div>
+    </div>
+</body>
+</html>
